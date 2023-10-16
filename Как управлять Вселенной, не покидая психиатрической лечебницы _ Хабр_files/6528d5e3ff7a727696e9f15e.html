@@ -1,0 +1,60 @@
+
+<!-- saved from url=(0059)https://embedd.srv.habr.com/iframe/6528d5e3ff7a727696e9f15e -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>🂭</title>
+  </head>
+  <body>
+    <div id="habr-embed">
+      <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="./2AUr3BtuRUI.html" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; clipboard-write; gyroscope; picture-in-picture; web-share"></iframe></div>
+    </div>
+    <style>
+      body, html {
+        margin: 0;
+      }
+    </style>
+    <script>
+      const frameId = '6528d5e3ff7a727696e9f15e';
+      const IFRAME_SCROLLBAR_OFFSET = 20;
+
+      function sendElementHeight(element) {
+        if (element.offsetHeight > 0) {
+          sendHeight(element.offsetHeight);
+        }
+      }
+
+      function sendHeight(height) {
+        window.parent.postMessage({
+          sentinel: 'amp',
+          type: 'embed-size',
+          height: height + IFRAME_SCROLLBAR_OFFSET,
+          id: frameId,
+        }, '*');
+      }
+
+      function sendScroll() {
+        window.parent.postMessage({
+          sentinel: 'amp',
+          type: 'embed-scroll',
+          id: frameId,
+        }, '*');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const element = document.getElementById("habr-embed");
+        const observer = new ResizeObserver(([entry]) => {
+          if (entry.borderBoxSize.length) {
+            sendHeight(entry.borderBoxSize[0].blockSize);
+          }
+        });
+        observer.observe(element);
+
+        window.addEventListener('message', function(e) {
+          if (e.data && e.data.type === 'scroll') sendScroll();
+          sendElementHeight(element);
+        });
+      });
+    </script>
+  
+
+</body></html>
